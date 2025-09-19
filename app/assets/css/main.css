@@ -1,1 +1,17 @@
 @import "tailwindcss";
+
+/* Force light mode for PrimeVue */
+:root {
+  color-scheme: light;
+}
+
+html {
+  color-scheme: light;
+}
+
+/* Disable dark mode completely */
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: light;
+  }
+}
