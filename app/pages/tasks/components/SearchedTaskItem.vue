@@ -37,19 +37,15 @@
 
 <script setup lang="ts">
 import type { Task } from '@/models/Task';
-
-type Emits = {
-  toggle: [id: string]
-  delete: [id: string]
-}
+import { useTaskStore } from '@/stores/task';
 
 const toast = useToast()
+const taskStore = useTaskStore()
 const props = defineProps<{
   task: Task
 }>()
-const emit = defineEmits<Emits>()
 
-const toggleComplete = () => {
+const toggleComplete = async () => {
   if(props.task.completed) {
     toast.add({
       severity: 'error',
@@ -58,13 +54,36 @@ const toggleComplete = () => {
     })
     return
   }
-  emit('toggle', props.task.id)
+
+  await useApiRequest({
+    endpoint: `tasks/${props.task.id}`,
+    method: 'PUT',
+    body: {
+      date: props.task.date,
+      description: props.task.description,
+      completed: true,
+    },
+  })
+
+  toast.add({
+    severity: 'success',
+    summary: 'Task completed successfully',
+    life: 3000,
+  })
+  taskStore.setSelectedTaskId(null)
 }
 
-const deleteTask = () => {
-  emit('delete', props.task.id)
+const deleteTask = async () => {
+  await useApiRequest({
+    endpoint: `tasks/${props.task.id}`,
+    method: 'DELETE',
+  })
+
+  toast.add({
+    severity: 'success',
+    summary: 'Task deleted successfully',
+    life: 3000,
+  })
+  taskStore.setSelectedTaskId(null)
 }
 </script>
-
-<style scoped>
-</style>

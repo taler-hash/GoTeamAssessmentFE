@@ -89,6 +89,14 @@
             class="w-full bg-gray-900 hover:bg-gray-800 transition-colors"
             :loading="isLoading"
           />
+        <div class="text-center mt-4">
+          <span class="text-sm text-gray-600">
+            Already have an account?
+            <NuxtLink to="/login" class="text-blue-600 hover:underline font-medium">
+              Login
+            </NuxtLink>
+          </span>
+        </div>
         </Form>
       </template>
     </Card>

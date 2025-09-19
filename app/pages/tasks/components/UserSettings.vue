@@ -8,8 +8,8 @@
           </svg>
         </div>
         <div>
-          <p class="text-sm font-medium text-gray-900">User</p>
-          <p class="text-xs text-gray-500">user@example.com</p>
+          <p class="text-sm font-medium text-gray-900">{{ user.user.name }}</p>
+          <p class="text-xs text-gray-500">{{ user.user.email }}</p>
         </div>
       </div>
     </div>
@@ -30,8 +30,10 @@
 
 <script setup lang="ts">
 import { useToast } from "primevue/usetoast";
+import type { User } from "@/models/User";
 const toast = useToast();
 const { logout } = useSanctumAuth()
+const user = useSanctumUser() as Ref<{message: string, user: User}>
 
 const handleLogout = async () => {
   try {

@@ -14,20 +14,17 @@
       </button>
     </div>
     
-    <div class="hidden md:flex flex-1 max-w-md mx-4 lg:mx-8">
-      <div class="relative w-full">
-        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-          <svg class="h-4 w-4 lg:h-5 lg:w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d=" 21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-          </svg>
-        </div>
-        <input
-          type="text"
+    <div class="md:flex flex-1 max-w-md mx-4 lg:mx-8">
+        <AutoComplete 
+          optionLabel="description"
+          v-model="value" 
+          :suggestions="items" 
+          @complete="search" 
+          class="w-full grow" 
           placeholder="Search"
-          class="w-full pl-9 lg:pl-10 pr-4 py-2 text-sm lg:text-base border border-gray-300 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent"
-          v-model="searchQuery"
+          input-class="w-full"
+          @change="handleChange"
         />
-      </div>
     </div>
     
     <div class="flex items-center space-x-3">
@@ -52,7 +49,25 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import UserSettings from './UserSettings.vue'
-const searchQuery = ref('')
+import type { Task } from '@/models/Task'
+import { useTaskStore } from '@/stores/task'
+import moment from 'moment'
+
+const value = ref('')
+const items = ref<Task[]>([])
+const taskStore = useTaskStore()
+
+const search = async (event: any) => {
+  const { data } = await useApiRequest({
+    endpoint: 'tasks',
+    method: 'GET',
+    body: {
+      search: event?.query
+    }
+  })
+
+  items.value = data
+}
 
 type Emits = {
   'toggle-mobile-menu': []
@@ -63,7 +78,11 @@ const emit = defineEmits<Emits>()
 const toggleMobileMenu = () => {
   emit('toggle-mobile-menu')
 }
-</script>
 
-<style scoped>
-</style>
+const handleChange = (event: any) => {
+  if(event?.value instanceof Object) {
+    taskStore.setSelectedTaskId(event?.value?.id)
+    taskStore.setSelectedDate(event?.value?.date ?? moment().format('YYYY-MM-DD'))
+  }
+}
+</script>
