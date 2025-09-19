@@ -56,6 +56,9 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
+import { useToast } from 'primevue/usetoast'
+
+const toast = useToast()
 
 type Emits = {
   'task-added': [text: string]
@@ -78,11 +81,12 @@ const handleSubmit = async () => {
     await new Promise(resolve => setTimeout(resolve, 500))
     
     emit('task-added', newTaskText.value.trim())
-    
-    showSuccessMessage.value = true
-    setTimeout(() => {
-      showSuccessMessage.value = false
-    }, 3000)
+
+    toast.add({
+      severity: 'success',
+      summary: 'Task added successfully',
+      life: 3000,
+    })
     
     newTaskText.value = ''
     

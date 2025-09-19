@@ -1,24 +1,23 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 import tailwindcss from "@tailwindcss/vite";
-import Aura from '@primeuix/themes/aura';
+import Material from '@primeuix/themes/material';
 
 export default defineNuxtConfig({
-  colorMode: {
-    preference: 'light',
-  },
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
   css: ['~/assets/css/main.css'],
+  
   modules: [
     '@nuxt/eslint',
     '@primevue/nuxt-module',
     'nuxt-auth-sanctum',
     'nuxt-lucide-icons',
+    '@pinia/nuxt',
   ],
   primevue: {
     options: {
         theme: {
-            preset: Aura,
+            preset: Material,
             options: {
                 darkModeSelector: false
             }

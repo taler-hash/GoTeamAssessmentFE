@@ -53,6 +53,7 @@
                 >
                   Password
                 </label>
+                
               </div>
               <Password
                 id="password"
@@ -71,6 +72,14 @@
             class="w-full bg-gray-900 hover:bg-gray-800 transition-colors"
             :loading="isLoading"
           />
+          <div class="text-center mt-4">
+            <span class="text-sm text-gray-600">
+              No account yet?
+              <NuxtLink to="/register" class="text-blue-600 hover:underline font-medium">
+                Register
+              </NuxtLink>
+            </span>
+          </div>
         </Form>
       </template>
     </Card>
@@ -81,7 +90,8 @@
 import { ref, reactive } from "vue";
 import { useForm, Form, Field, ErrorMessage } from "vee-validate";
 import * as zod from "zod";
-import { toTypedSchema } from "@vee-validate/zod";import { useToast } from "primevue/usetoast";
+import { toTypedSchema } from "@vee-validate/zod";
+import { useToast } from "primevue/usetoast";
 import type { User } from "~/models/User";
 
 const toast = useToast();
