@@ -17,6 +17,7 @@
     "eslint": "^9.35.0",
     "nuxt": "^4.1.2",
     "nuxt-auth-sanctum": "^1.2.0",
+    "nuxt-lucide-icons": "2.0.0",
     "primevue": "^4.3.9",
     "tailwindcss": "^4.1.13",
     "vee-validate": "^4.15.1",
