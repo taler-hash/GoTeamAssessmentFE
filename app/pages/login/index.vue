@@ -53,18 +53,12 @@
                 >
                   Password
                 </label>
-                <a
-                  href="#"
-                  class="text-sm text-blue-600 hover:text-blue-800 transition-colors"
-                >
-                  Forgot your password?
-                </a>
               </div>
               <Password
                 id="password"
                 v-bind="field"
                 placeholder="Enter your password"
-                class="w-full"
+                class="w-full"  
                 :feedback="false"
                 toggleMask
               />
@@ -126,8 +120,14 @@ const onSubmit = async (values: User) => {
 
     await navigateTo("/tasks");
   } catch (error) {
+    toast.add({ 
+      severity: 'error', 
+      summary: 'Login failed', 
+      detail: (error as any)?.data?.message ?? (error as any)?.message ?? 'Login failed', 
+      life: 3000,
+    });
+
     console.error("Login failed:", error);
-    toast.add({ severity: 'error', summary: 'Error', detail: 'Login failed', life: 3000 });
   } finally {
     isLoading.value = false;
   }

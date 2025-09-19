@@ -1,5 +1,5 @@
 <template>
-  <div class="flex-1 overflow-y-auto p-4 lg:p-6">
+  <div class="h-full overflow-y-auto p-4 lg:p-6">
     <div class="space-y-3 lg:space-y-4">
       <TaskItem
         v-for="task in tasks"

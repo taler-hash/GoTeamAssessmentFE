@@ -30,30 +30,34 @@
       </ClientOnly>
       
       <div class="flex-1 flex flex-col min-h-0">
-        <ClientOnly>
-          <TaskList ref="taskListRef" />
-          <template #fallback>
-            <div class="flex-1 overflow-y-auto p-4 lg:p-6">
-              <div class="flex flex-col items-center justify-center h-48 lg:h-64 text-gray-500 px-4">
-                <div class="animate-pulse">
-                  <div class="h-4 bg-gray-200 rounded w-48 mb-2"></div>
-                  <div class="h-4 bg-gray-200 rounded w-32"></div>
+        <div class="flex-1 overflow-hidden">
+          <ClientOnly>
+            <TaskList ref="taskListRef" />
+            <template #fallback>
+              <div class="h-full overflow-y-auto p-4 lg:p-6">
+                <div class="flex flex-col items-center justify-center h-48 lg:h-64 text-gray-500 px-4">
+                  <div class="animate-pulse">
+                    <div class="h-4 bg-gray-200 rounded w-48 mb-2"></div>
+                    <div class="h-4 bg-gray-200 rounded w-32"></div>
+                  </div>
                 </div>
               </div>
-            </div>
-          </template>
-        </ClientOnly>
+            </template>
+          </ClientOnly>
+        </div>
         
-        <ClientOnly>
-          <AddTask @task-added="handleTaskAdded" />
-          <template #fallback>
-            <div class="p-4 lg:p-6 border-t border-gray-200 bg-white">
-              <div class="animate-pulse">
-                <div class="h-10 bg-gray-200 rounded"></div>
+        <div class="flex-shrink-0">
+          <ClientOnly>
+            <AddTask @task-added="handleTaskAdded" />
+            <template #fallback>
+              <div class="p-4 lg:p-6 border-t border-gray-200 bg-white">
+                <div class="animate-pulse">
+                  <div class="h-10 bg-gray-200 rounded"></div>
+                </div>
               </div>
-            </div>
-          </template>
-        </ClientOnly>
+            </template>
+          </ClientOnly>
+        </div>
       </div>
     </div>
     
